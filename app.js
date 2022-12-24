@@ -1,23 +1,28 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
+const connectDb = require('./db/connect')
 const port = process.env.PORT || 5000
+
+const pro = require('./products.json')
+const proModel = require('./models/products')
+
+const productsRouter = require('./routes/products')
 
 app.get('/', (req, res) => res.send('my first express app - hardcoder0620'))
 
 
-
-
-
-
-
+app.use('/api/products',productsRouter)
 
 const start = async ()=>{
     try {
-
-        app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+        await connectDb(process.env.mongo_Uri);
+   
+        app.listen(port, () => console.log(`Example appp listening on port ${port}!`))
         
     } catch (error) {
         console.log('error on start function',error)
+        console.log('error on somewere plx find!!!')
         
     }
 }
