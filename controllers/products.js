@@ -1,7 +1,15 @@
 const productModel = require('../models/products')
 
 const getAllProducts = async (req,res)=>{
-    const allProducts = await productModel.find({_id:"63a733288eb0be17e40c5e84"})
+    const {name} = req.query
+    console.log("req.query.name",name)
+    const qeryObj = {}
+    if(name){
+        qeryObj.name = {$regex:name,$options:"i"}
+    }
+
+    const allProducts = await productModel.find(qeryObj)
+
     res.status(200).json({data:allProducts})
 }
 
