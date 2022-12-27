@@ -7,9 +7,7 @@ const getAllProducts = async (req,res)=>{
     if(name){
         qeryObj.name = {$regex:name,$options:"i"}
     }
-
     const allProducts = await productModel.find(qeryObj)
-
     res.status(200).json({data:allProducts})
 }
 
